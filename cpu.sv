@@ -15,24 +15,43 @@
 /////////////////////////////////////////////////////////////////////
 
 module cpu (
-    input logic clock, nRst
-  );
+    input logic clock, nRst,
 
+    // to AHB
+    output logic HBUSREQ1,
+    output logic HADDR,
+
+    input logic HGRANT1,
+    input logic [31:0] HRDATA
+  );
 
   logic [31:0] PC;
   logic [31:0] instruction;
 
   logic [19:0] immediate_num;
 
+  enum {inst_fetch, inst_exe} cpu_state;
+
   always_ff @(posedge clock or negedge nRst)
   begin
-    if(!nRst)
+    if(!nRst) // cpu reset
     begin
-      PC = 0; // reset prog counter
+      PC <= 0; // reset prog counter
+      HBUSREQ1 <= 0;
+      HADDR <= 0;
     end
     else
     begin
-      PC <= PC + 1;
+      // fetch SRAM
+      HBUSREQ1 <= 1;
+      if(HGRANT1) // AHB allow cpu to use
+      begin
+        HADDR <= PC;
+      end
+      else
+      begin
+
+      end
     end
   end
 
