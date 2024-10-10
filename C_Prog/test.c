@@ -1,70 +1,71 @@
 #include <stdint.h>
 #include <stdio.h>
 
-// ¼ÙÉè UART µÄ»ùµØÖ·
+// å‡è®¾ UART çš„åŸºåœ°å€
 #define UART_BASE_ADDR 0x4000d000
 
-// UART ¼Ä´æÆ÷Æ«ÒÆ
+// UART å¯„å­˜å™¨åç§»
 #define UART_TXDATA_OFFSET   0x00
 #define UART_TXCTRL_OFFSET   0x08
 #define UART_IE_OFFSET       0x10
 #define UART_IP_OFFSET       0x14
 
-// UART ¿ØÖÆ¼Ä´æÆ÷µÄÎ»¶¨Òå
-#define UART_TXEN           (1 << 0)  // ÆôÓÃ·¢ËÍ
-#define UART_TXIE           (1 << 0)  // ·¢ËÍÖĞ¶ÏÊ¹ÄÜ
+// UART æ§åˆ¶å¯„å­˜å™¨çš„ä½å®šä¹‰
+#define UART_TXEN           (1 << 0)  // å¯ç”¨å‘é€
+#define UART_TXIE           (1 << 0)  // å‘é€ä¸­æ–­ä½¿èƒ½
 
-// ¶¨Òå UART ¼Ä´æÆ÷
+// å®šä¹‰ UART å¯„å­˜å™¨
 #define UART_TXDATA   (*(volatile uint32_t *)(UART_BASE_ADDR + UART_TXDATA_OFFSET))
 #define UART_TXCTRL   (*(volatile uint32_t *)(UART_BASE_ADDR + UART_TXCTRL_OFFSET))
 #define UART_IE       (*(volatile uint32_t *)(UART_BASE_ADDR + UART_IE_OFFSET))
 #define UART_IP       (*(volatile uint32_t *)(UART_BASE_ADDR + UART_IP_OFFSET))
 
-// ×Ö·û´®Êı¾İ
+// å­—ç¬¦ä¸²æ•°æ®
 const char message[] = "Hello world";
-volatile uint32_t message_index = 0;  // ·¢ËÍµÄË÷Òı
+volatile uint32_t message_index = 0;  // å‘é€çš„ç´¢å¼•
 
 void uart_init() {
-    // ÆôÓÃ·¢ËÍ
+    // å¯ç”¨å‘é€
     UART_TXCTRL |= UART_TXEN;
 
-    // ÆôÓÃ·¢ËÍÖĞ¶Ï
+    // å¯ç”¨å‘é€ä¸­æ–­
     UART_IE |= UART_TXIE;
 }
 
 void uart_send_char(char c) {
-    // ·¢ËÍ×Ö·û
+    // å‘é€å­—ç¬¦
     UART_TXDATA = (uint32_t)c;
 }
 
 void uart_isr() {
-    // ¼ì²éÊÇ·ñÊÇ·¢ËÍÖĞ¶Ï
+    // æ£€æŸ¥æ˜¯å¦æ˜¯å‘é€ä¸­æ–­
     if (UART_IP & UART_TXIE) {
-        // Çå³ıÖĞ¶Ï±êÖ¾
+        // æ¸…é™¤ä¸­æ–­æ ‡å¿—
         UART_IP &= ~UART_TXIE;
 
-        // ·¢ËÍÏÂÒ»¸ö×Ö·û
+        // å‘é€ä¸‹ä¸€ä¸ªå­—ç¬¦
         if (message[message_index] != '\0') {
             uart_send_char(message[message_index++]);
         } else {
-            // ·¢ËÍÍê×îºóÒ»¸ö×Ö·ûºó£¬½ûÓÃ·¢ËÍÖĞ¶Ï
+            // å‘é€å®Œæœ€åä¸€ä¸ªå­—ç¬¦åï¼Œç¦ç”¨å‘é€ä¸­æ–­
             UART_IE &= ~UART_TXIE;
         }
     }
 }
 
 int main() {
-    // ³õÊ¼»¯ UART
+    // åˆå§‹åŒ– UART
     uart_init();
 
-    // ·¢ËÍµÚÒ»¸ö×Ö·ûÀ´´¥·¢·¢ËÍÖĞ¶Ï
+    // å‘é€ç¬¬ä¸€ä¸ªå­—ç¬¦æ¥è§¦å‘å‘é€ä¸­æ–­
     uart_send_char(message[message_index++]);
 
-    // ½øÈëÑ­»·µÈ´ı
+    // è¿›å…¥å¾ªç¯ç­‰å¾…
     while (1) {
-        // ½øÈëµÍ¹¦ºÄÄ£Ê½»òµÈ´ıÖĞ¶Ï
-        asm volatile ("wfi"); // µÈ´ıÖĞ¶ÏÖ¸Áî
+        // è¿›å…¥ä½åŠŸè€—æ¨¡å¼æˆ–ç­‰å¾…ä¸­æ–­
+        asm volatile ("wfi"); // ç­‰å¾…ä¸­æ–­æŒ‡ä»¤
     }
 
     return 0;
 }
+
