@@ -13,7 +13,6 @@
 //
 // Revision   : Version 0.0 10/2024
 /////////////////////////////////////////////////////////////////////
-
 module AHB (
     // Bus
     input logic HCLK, // Clock
@@ -28,7 +27,7 @@ module AHB (
     input logic HREADYIN, // transfer done
     input logic HREADYOUT, // transfer done
 
-    output logic HSEL1, HSEL2, HSEL3, // slave select: 1:SRAM, 2:UART, 3:interrupt_reg
+    output logic HSEL1, HSEL2, HSEL3, // slave select: 1:SRAM, 2:interrupt_reg, 3:APB bridge
     output logic [31:0] HRDATA, // read data
     output logic [1:0] HRESP, // transfer response: 0:OKAY, 1:ERROR, 2:RETRY, 3:SPLIT
 
@@ -58,18 +57,18 @@ module AHB (
     HSEL1 = 0;
     HSEL2 = 0;
     HSEL3 = 0;
-    
-    if(HADDR == 32'h4000d000)
+
+    if(HADDR == 32'h4000d000) // UART
     begin
         HSEL2 = 1;
     end
-    else if(HADDR == 32'h00000000)
+    else if(HADDR == 32'h00000000) // SRAM
     begin
         HSEL1 = 1;
     end
-    else if (HADDR == 32'h40002000)
+    else if (HADDR == 32'h40002000) // AHB2APB bridge
     begin
-
+        HSEL3 = 1;
     end
     else
     begin

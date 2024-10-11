@@ -13,7 +13,6 @@
 //
 // Revision   : Version 0.0 10/2024
 /////////////////////////////////////////////////////////////////////
-
 module cpu (
     input logic clock, nRst,
 
@@ -43,14 +42,11 @@ module cpu (
     else
     begin
       // fetch SRAM
-      HBUSREQ1 <= 1;
+      HBUSREQ1 <= 1; // Request the BUS
+      HADDR <= PC; // remap the PC to address
       if(HGRANT1) // AHB allow cpu to use
       begin
-        HADDR <= PC;
-      end
-      else
-      begin
-
+      instruction <= HRDATA;
       end
     end
   end
