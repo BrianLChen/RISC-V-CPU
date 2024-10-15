@@ -1,1 +1,4 @@
-**/corev-openhw-gcc-ubuntu2204-20240530
+*.o
+*.hex
+*.bin
+*.data
