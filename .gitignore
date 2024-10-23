@@ -2,3 +2,7 @@
 **/work
 **/Quartus
 **/Questa
+**/doc
+
+*.data
+transcript
