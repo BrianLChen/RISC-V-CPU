@@ -17,7 +17,7 @@ module uart #(parameter sys_clk = 50000000)
   (
     input logic clock, nRst,
 
-    // AHB
+    // Bus
     input logic HSEL, // slave select
     input logic HWRITE,
     input logic [31:0] HWDATA,
@@ -57,9 +57,9 @@ module uart #(parameter sys_clk = 50000000)
   logic [31:0] uart_inst_reg; // instruction register 0x08
   // 0: uart start, 1: clear interrupt
   logic [31:0] uart_status_reg;
-  // bit[0]: tx busy, 1: idle
+  // bit[0]: tx busy
 
-  enum {uart_IDLE, para_setting, msg_caching, uart_trig, uart_exe, interrupt_write} uart_state;
+  enum {uart_IDLE, uart_trig, uart_exe, interrupt_write} uart_state;
 
   enum {transfer_IDLE, start, send, stop} transfer_state;
 

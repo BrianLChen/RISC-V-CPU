@@ -1,5 +1,5 @@
 `include "defines.v"
-module AHB (
+module bus (
     input wire clk,
     input wire rst,
 

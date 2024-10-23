@@ -58,7 +58,7 @@ module soc_top (
   wire [31:0] PWDATA;
   wire [31:0] PRDATA;
 
-  // AHB - RIB
+  // Bus
   logic rib_hold_flag;
 
   // clock reset control
@@ -116,7 +116,7 @@ module soc_top (
               .int_i(int_flag)
             );
 
-  AHB AHB1 (
+  bus bus1 (
         .clk, .rst(nRst),
         .m0_addr_i(m0_addr),
         .m0_hwdata_i(m0_hwdata),
