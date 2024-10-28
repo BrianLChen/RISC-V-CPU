@@ -1,0 +1,138 @@
+D:/FPGA/RISC_V/RTL/bus.sv {1 {vlog -work work -vopt -sv -stats=none D:/FPGA/RISC_V/RTL/bus.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module bus
+
+Top level modules:
+	bus
+
+} {} {}} D:/FPGA/RISC_V/RTL/clk_control.sv {1 {vlog -work work -vopt -sv -stats=none D:/FPGA/RISC_V/RTL/clk_control.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module clk_control
+
+Top level modules:
+	clk_control
+
+} {} {}} D:/FPGA/RISC_V/RTL/csr_reg.v {1 {vlog -work work -vopt -stats=none D:/FPGA/RISC_V/RTL/csr_reg.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module csr_reg
+
+Top level modules:
+	csr_reg
+
+} {} {}} D:/FPGA/RISC_V/RTL/ctrl.v {1 {vlog -work work -vopt -stats=none D:/FPGA/RISC_V/RTL/ctrl.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module ctrl
+
+Top level modules:
+	ctrl
+
+} {} {}} D:/FPGA/RISC_V/RTL/gen_buf.v {1 {vlog -work work -vopt -stats=none D:/FPGA/RISC_V/RTL/gen_buf.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module gen_ticks_sync
+
+Top level modules:
+	gen_ticks_sync
+
+} {} {}} D:/FPGA/RISC_V/RTL/pc_reg.v {1 {vlog -work work -vopt -stats=none D:/FPGA/RISC_V/RTL/pc_reg.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module pc_reg
+
+Top level modules:
+	pc_reg
+
+} {} {}} D:/FPGA/RISC_V/RTL/id_ex.v {1 {vlog -work work -vopt -stats=none D:/FPGA/RISC_V/RTL/id_ex.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module id_ex
+
+Top level modules:
+	id_ex
+
+} {} {}} D:/FPGA/RISC_V/RTL/soc_top.sv {1 {vlog -work work -vopt -sv -stats=none D:/FPGA/RISC_V/RTL/soc_top.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module soc_top
+
+Top level modules:
+	soc_top
+
+} {} {}} D:/FPGA/RISC_V/RTL/if_id.v {1 {vlog -work work -vopt -stats=none D:/FPGA/RISC_V/RTL/if_id.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module if_id
+
+Top level modules:
+	if_id
+
+} {} {}} D:/FPGA/RISC_V/RTL/ex.v {1 {vlog -work work -vopt -stats=none D:/FPGA/RISC_V/RTL/ex.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module ex
+
+Top level modules:
+	ex
+
+} {} {}} D:/FPGA/RISC_V/RTL/id.v {1 {vlog -work work -vopt -stats=none D:/FPGA/RISC_V/RTL/id.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module id
+
+Top level modules:
+	id
+
+} {} {}} D:/FPGA/RISC_V/RTL/SRAM.sv {1 {vlog -work work -vopt -sv -stats=none D:/FPGA/RISC_V/RTL/SRAM.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module SRAM
+
+Top level modules:
+	SRAM
+
+} {} {}} D:/FPGA/RISC_V/RTL/defines.v {1 {vlog -work work -vopt -stats=none D:/FPGA/RISC_V/RTL/defines.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+
+} {} {}} D:/FPGA/RISC_V/RTL/soc_top_tb.sv {1 {vlog -work work -vopt -sv -stats=none D:/FPGA/RISC_V/RTL/soc_top_tb.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module soc_tb
+
+Top level modules:
+	soc_tb
+
+} {} {}} D:/FPGA/RISC_V/RTL/regs.v {1 {vlog -work work -vopt -stats=none D:/FPGA/RISC_V/RTL/regs.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module regs
+
+Top level modules:
+	regs
+
+} {} {}} D:/FPGA/RISC_V/RTL/gen_dff.v {1 {vlog -work work -vopt -stats=none D:/FPGA/RISC_V/RTL/gen_dff.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module gen_pipe_dff
+-- Compiling module gen_rst_0_dff
+-- Compiling module gen_rst_1_dff
+-- Compiling module gen_rst_def_dff
+-- Compiling module gen_en_dff
+
+Top level modules:
+	gen_pipe_dff
+	gen_rst_0_dff
+	gen_rst_1_dff
+	gen_rst_def_dff
+	gen_en_dff
+
+} {} {}} D:/FPGA/RISC_V/RTL/clint.v {1 {vlog -work work -vopt -stats=none D:/FPGA/RISC_V/RTL/clint.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module clint
+
+Top level modules:
+	clint
+
+} {} {}} D:/FPGA/RISC_V/RTL/tinyriscv.v {1 {vlog -work work -vopt -stats=none D:/FPGA/RISC_V/RTL/tinyriscv.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module tinyriscv
+
+Top level modules:
+	tinyriscv
+
+} {} {}} D:/FPGA/RISC_V/RTL/div.v {1 {vlog -work work -vopt -stats=none D:/FPGA/RISC_V/RTL/div.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module div
+
+Top level modules:
+	div
+
+} {} {}}
