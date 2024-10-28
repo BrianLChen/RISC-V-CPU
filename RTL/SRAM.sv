@@ -45,7 +45,7 @@ module SRAM #(parameter RAM_size = 5120, parameter ADDR_WIDTH=32)
 
   initial // load hex into ram
   begin
-    $readmemh("hello_world.data", SRAM_data);
+    $readmemh("uart_tx.data", SRAM_data);
   end
 
   always_ff @(posedge HCLK)

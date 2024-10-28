@@ -13,7 +13,7 @@
 // Contributor: Robert Balas <balasr@student.ethz.ch>
 //              Jeremy Bennett <jeremy.bennett@embecosm.com>
 
-module tb_top #(
+module soc_tb #(
   parameter INSTR_RDATA_WIDTH = 32,
   parameter RAM_ADDR_WIDTH = 32,
   parameter BOOT_ADDR = 'h180,
@@ -29,8 +29,8 @@ timeprecision 100ps;
 // comment to record execution trace
 //`define TRACE_EXECUTION
 
-const time          CLK_PHASE_HI = 5ns;
-const time          CLK_PHASE_LO = 5ns;
+const time          CLK_PHASE_HI = 10ns;
+const time          CLK_PHASE_LO = 10ns;
 const time          CLK_PERIOD = CLK_PHASE_HI + CLK_PHASE_LO;
 
 const time          STIM_APPLICATION_DEL = CLK_PERIOD * 0.1;
