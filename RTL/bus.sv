@@ -4,43 +4,43 @@ module bus (
     input wire rst,
 
     // master 0 interface cpu
-    input wire [`MemAddrBus] m0_addr_i,     // Ö÷Éè±¸0¶Á¡¢Ğ´µØÖ·
-    input wire [`MemBus] m0_hwdata_i,         // Ö÷Éè±¸0Ğ´Êı¾İ
-    output logic [`MemBus] m0_hrdata_o,         // Ö÷Éè±¸0¶ÁÈ¡µ½µÄÊı¾İ
-    input wire m0_req_i,                   // Ö÷Éè±¸0·ÃÎÊÇëÇó±êÖ¾
+    input wire [`MemAddrBus] m0_addr_i,     // ä¸»è®¾å¤‡0è¯»ã€å†™åœ°å€
+    input wire [`MemBus] m0_hwdata_i,         // ä¸»è®¾å¤‡0å†™æ•°æ®
+    output logic [`MemBus] m0_hrdata_o,         // ä¸»è®¾å¤‡0è¯»å–åˆ°çš„æ•°æ®
+    input wire m0_req_i,                   // ä¸»è®¾å¤‡0è®¿é—®è¯·æ±‚æ ‡å¿—
     output logic m0_gnt_o, // Mater 0 get the bus
-    input wire m0_we_i,                    // Ö÷Éè±¸0Ğ´±êÖ¾
+    input wire m0_we_i,                    // ä¸»è®¾å¤‡0å†™æ ‡å¿—
 
     // master 1 interface cpu instruction
-    input wire[`MemAddrBus] m1_addr_i,     // Ö÷Éè±¸1¶Á¡¢Ğ´µØÖ·
-    input wire[`MemBus] m1_hwdata_i,         // Ö÷Éè±¸1Ğ´Êı¾İ
-    output reg[`MemBus] m1_hrdata_o,         // Ö÷Éè±¸1¶ÁÈ¡µ½µÄÊı¾İ
-    input wire m1_req_i,                   // Ö÷Éè±¸1·ÃÎÊÇëÇó±êÖ¾
+    input wire[`MemAddrBus] m1_addr_i,     // ä¸»è®¾å¤‡1è¯»ã€å†™åœ°å€
+    input wire[`MemBus] m1_hwdata_i,         // ä¸»è®¾å¤‡1å†™æ•°æ®
+    output reg[`MemBus] m1_hrdata_o,         // ä¸»è®¾å¤‡1è¯»å–åˆ°çš„æ•°æ®
+    input wire m1_req_i,                   // ä¸»è®¾å¤‡1è®¿é—®è¯·æ±‚æ ‡å¿—
     output logic m1_gnt_o, // Mater 0 get the bus
-    input wire m1_we_i,                    // Ö÷Éè±¸1Ğ´±êÖ¾
+    input wire m1_we_i,                    // ä¸»è®¾å¤‡1å†™æ ‡å¿—
 
     // slave 0 interface SRAM
     output logic s0_hsel_o,
-    output logic [`MemAddrBus] s0_addr_o,     // ´ÓÉè±¸0¶Á¡¢Ğ´µØÖ·
-    output logic [`MemBus] s0_hwdata_o,         // ´ÓÉè±¸0Ğ´Êı¾İ
-    input wire [`MemBus] s0_hrdata_i,         // ´ÓÉè±¸0¶ÁÈ¡µ½µÄÊı¾İ
-    output logic s0_we_o,                    // ´ÓÉè±¸0Ğ´±êÖ¾
+    output logic [`MemAddrBus] s0_addr_o,     // ä»è®¾å¤‡0è¯»ã€å†™åœ°å€
+    output logic [`MemBus] s0_hwdata_o,         // ä»è®¾å¤‡0å†™æ•°æ®
+    input wire [`MemBus] s0_hrdata_i,         // ä»è®¾å¤‡0è¯»å–åˆ°çš„æ•°æ®
+    output logic s0_we_o,                    // ä»è®¾å¤‡0å†™æ ‡å¿—
 
     // slave 1 interface reset clock control
     output logic s1_hsel_o,
-    output logic [`MemAddrBus] s1_addr_o,     // ´ÓÉè±¸1¶Á¡¢Ğ´µØÖ·
-    output logic [`MemBus] s1_hwdata_o,         // ´ÓÉè±¸1Ğ´Êı¾İ
-    input wire [`MemBus] s1_hrdata_i,         // ´ÓÉè±¸1¶ÁÈ¡µ½µÄÊı¾İ
-    output logic s1_we_o,                    // ´ÓÉè±¸1Ğ´±êÖ¾
+    output logic [`MemAddrBus] s1_addr_o,     // ä»è®¾å¤‡1è¯»ã€å†™åœ°å€
+    output logic [`MemBus] s1_hwdata_o,         // ä»è®¾å¤‡1å†™æ•°æ®
+    input wire [`MemBus] s1_hrdata_i,         // ä»è®¾å¤‡1è¯»å–åˆ°çš„æ•°æ®
+    output logic s1_we_o,                    // ä»è®¾å¤‡1å†™æ ‡å¿—
 
     // slave 2 interface APB BUS
     output logic s2_hsel_o,
-    output logic [`MemAddrBus] s2_addr_o,     // ´ÓÉè±¸2¶Á¡¢Ğ´µØÖ·
-    output logic [`MemBus] s2_hwdata_o,         // ´ÓÉè±¸2Ğ´Êı¾İ
-    input wire [`MemBus] s2_hrdata_i,         // ´ÓÉè±¸2¶ÁÈ¡µ½µÄÊı¾İ
-    output logic s2_we_o,                    // ´ÓÉè±¸2Ğ´±êÖ¾
+    output logic [`MemAddrBus] s2_addr_o,     // ä»è®¾å¤‡2è¯»ã€å†™åœ°å€
+    output logic [`MemBus] s2_hwdata_o,         // ä»è®¾å¤‡2å†™æ•°æ®
+    input wire [`MemBus] s2_hrdata_i,         // ä»è®¾å¤‡2è¯»å–åˆ°çš„æ•°æ®
+    output logic s2_we_o,                    // ä»è®¾å¤‡2å†™æ ‡å¿—
 
-    output logic hold_flag_o                 // ÔİÍ£Á÷Ë®Ïß±êÖ¾
+    output logic hold_flag_o                 // æš‚åœæµæ°´çº¿æ ‡å¿—
   );
 
   // address of the slave MSB 20-bit
