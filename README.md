@@ -1,4 +1,4 @@
-# A simple RV SOC Design Based on TinyRISCV core
+# A simple RV SOC Design Based on CV32E40P core
 
 The test environment is build on Questa Starter Edition
 
