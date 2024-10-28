@@ -13,18 +13,22 @@
 //
 // Revision   : Version 0.0 10/2024
 /////////////////////////////////////////////////////////////////////
-module uart #(parameter sys_clk = 50000000)
+module uart #(parameter sys_clk = 50000000, parameter ADDR_WIDTH=32)
   (
     input logic clock, nRst,
 
     // Bus
     input logic HSEL, // slave select
-    input logic HWRITE,
-    input logic [31:0] HWDATA,
-    // input logic send_req,
+    input logic [3:0] HBE,
+    output logic HREADY,
 
     input logic [31:0] HADDR,
+    input logic HWRITE,
+
     output logic [31:0] HRDATA,
+    input logic [31:0] HWDATA,
+
+    // input logic send_req,
     output logic interrupt,
 
     // to outside
@@ -46,7 +50,7 @@ module uart #(parameter sys_clk = 50000000)
   logic [31:0] baud_rate_conter_value; // 0:9600, 1:115200
   logic [2:0] parity; // 0: no parity
   logic [7:0] uart_tx_cache; // 31 8-bit tx_cache
-
+  logic HREADY1, HREADY2;
 
   //registers
   logic [31:0] uart_cfg_reg; // config register 0x00
@@ -58,19 +62,77 @@ module uart #(parameter sys_clk = 50000000)
   // 0: uart start, 1: clear interrupt
   logic [31:0] uart_status_reg;
   // bit[0]: tx busy
-
+  assign HREADY = HREADY1 | HREADY2;
   enum {uart_IDLE, uart_trig, uart_exe, interrupt_write} uart_state;
 
   enum {transfer_IDLE, start, send, stop} transfer_state;
 
-  //TODO
-  // assign tx_cache[0] = data_in[7:0];
+  // AHB - Register Connection
+  always_ff @(posedge clock or negedge nRst)
+  begin
+    if(!nRst)
+    begin
+      uart_cfg_reg <= '0;
+      uart_tx_data_reg <= '0;
+      uart_inst_reg <= 0;
+      HREADY1 <= 0;
+    end
+    else
+    begin
+      if(HSEL)
+      begin
+        if(HWRITE) // if Write register
+        begin
+          case ({20'b0, HADDR[11:0]})
+            uart_cfg_offset:
+            begin
+              begin
+                uart_cfg_reg <= HWDATA[30:0];
+              end
+            end
+            uart_tx_data_offset:
+            begin
+              uart_tx_data_reg <= {24'b0, HWDATA[7:0]};
+            end
+            uart_status_offset:
+            begin // Read Only Register
+            end
+          endcase
+        end
+        else // Read Register
+        begin
+          case ({20'b0, HADDR[11:0]})
+            uart_cfg_offset:
+            begin
+              begin
+                HRDATA <= {29'b0, uart_cfg_reg[2:0]};
+              end
+            end
+            uart_tx_data_offset:
+            begin
+              HRDATA <= {24'b0, uart_tx_data_reg[7:0]};
+            end
+            uart_status_offset:
+            begin // Read Only Register
+              HRDATA <= {31'b0, uart_status_reg[0]};
+            end
+          endcase
+        end
+        HREADY1 <= 1;
+      end
+      else
+      begin
+        HREADY1 <= 0;
+      end
+    end
+  end
 
   // state machine for UART module
   always_ff @(posedge clock or negedge nRst)
   begin
     if(!nRst)
     begin
+      HREADY2 <= 0;
       uart_state <= uart_IDLE;
       interrupt <= 0;
     end
@@ -82,44 +144,35 @@ module uart #(parameter sys_clk = 50000000)
           if(HSEL && HWRITE)
           begin
             case ({20'b0, HADDR[11:0]})
-              uart_cfg_offset: // write cfg register
-              begin
-                uart_state <= uart_IDLE;
-                uart_cfg_reg <= HWDATA[30:0];
-              end
-              uart_tx_data_offset: // write tx data
-              begin
-                uart_state <= uart_IDLE;
-                uart_tx_data_reg <= {24'b0, HWDATA[7:0]};
-              end
               uart_inst_offset: // uart instruction
               begin
                 if(HWDATA[0])
                 begin
                   if(uart_cfg_reg[0]) // if uart enable
                   begin
-                  uart_state <= uart_trig;
-                  uart_tx_cache <= uart_tx_data_reg[7:0];
-                  send_req <= 1;
+                    uart_state <= uart_trig;
+                    uart_tx_cache <= uart_tx_data_reg[7:0];
+                    send_req <= 1;
+                    HREADY2 <= 1;
                   end
                 end
                 if(HWDATA[1])
                 begin
                   interrupt <= 0;
+                  HREADY2 <= 1;
                 end
-              end
-              uart_status_offset: // read only no operation
-              begin
               end
               default:
               begin
                 uart_state <= uart_IDLE;
                 send_req <= 0;
+                HREADY2 <= 0;
               end
             endcase
           end
           else
           begin
+            HREADY2 <= 0;
             uart_state <= uart_IDLE;
           end
         end
@@ -265,36 +318,6 @@ module uart #(parameter sys_clk = 50000000)
     endcase
   end
 
-  // read register
-  always_comb
-  begin
-    if(!nRst)
-    begin
-      HRDATA = '0;
-    end
-    else
-    begin
-      case (HADDR[7:0])
-        uart_cfg_offset:
-        begin
-          HRDATA = uart_cfg_reg;
-        end
-        uart_tx_data_offset:
-        begin
-          HRDATA = uart_tx_data_reg;
-        end
-        uart_inst_offset:
-        begin
-          // HRDATA = uart_inst_offset;
-          HRDATA = '0; // instruction should not be write
-        end
-        uart_status_offset:
-        begin
-          HRDATA = uart_status_reg;
-        end
-      endcase
-    end
-  end
 
   always_comb
   begin
