@@ -155,6 +155,13 @@ Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
 Top level modules:
 	cv32e40p_load_store_unit
 
+} {} {}} D:/FPGA/RISC_V/RTL/soc_top_tb..sv {1 {vlog -work work -vopt -sv -stats=none D:/FPGA/RISC_V/RTL/soc_top_tb..sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module soc_tb
+
+Top level modules:
+	soc_tb
+
 } {} {}} D:/FPGA/RISC_V/RTL/cv32e40p_sim_clock_gate.sv {1 {vlog -work work -vopt -sv -stats=none D:/FPGA/RISC_V/RTL/cv32e40p_sim_clock_gate.sv
 Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
 -- Compiling module cv32e40p_clock_gate
